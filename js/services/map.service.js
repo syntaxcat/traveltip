@@ -8,7 +8,14 @@ export const mapService = {
 
 import { locService } from './loc.service.js';
 
-var gMap;
+const GEO_KEY = 'AIzaSyBIIJxF_yfMzCne22NG36zhttQQMsIQhp8';
+
+const URL_SEARCH =
+	'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${GEO_KEY}';
+
+//maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyBIIJxF_yfMzCne22NG36zhttQQMsIQhp8
+
+https: var gMap;
 let infoWindow;
 let marker;
 
@@ -17,8 +24,6 @@ function _onSaveLoc(lat, lng) {
 }
 window.infoWindowInputValue = '';
 window._onSaveLoc = _onSaveLoc;
-
-
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
 	console.log('InitMap');
@@ -84,8 +89,6 @@ function _connectGoogleApi() {
 	});
 }
 
-
-
 function showLocation(position) {
 	// console.log(position, 'pos');
 
@@ -94,22 +97,21 @@ function showLocation(position) {
 	initMap(position.coords.latitude, position.coords.longitude);
 }
 
-
 function handleLocationError(error) {
-	var locationError = document.getElementById("locationError");
+	var locationError = document.getElementById('locationError');
 
 	switch (error.code) {
 		case 0:
-			locationError.innerHTML = "There was an error while retrieving your location: " + error.message;
+			locationError.innerHTML = 'There was an error while retrieving your location: ' + error.message;
 			break;
 		case 1:
 			locationError.innerHTML = "The user didn't allow this page to retrieve a location.";
 			break;
 		case 2:
-			locationError.innerHTML = "The browser was unable to determine your location: " + error.message;
+			locationError.innerHTML = 'The browser was unable to determine your location: ' + error.message;
 			break;
 		case 3:
-			locationError.innerHTML = "The browser timed out before retrieving the location.";
+			locationError.innerHTML = 'The browser timed out before retrieving the location.';
 			break;
 	}
 }

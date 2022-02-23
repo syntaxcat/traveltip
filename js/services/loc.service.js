@@ -1,7 +1,4 @@
-
-
-
-var gLocs
+var gLocs;
 // const gLocs;
 import { storageService } from './storage.service.js';
 
@@ -70,12 +67,10 @@ function saveLoc(name, lat, lng) {
 	locService.saveLocation(STORAGE_KEY, gLocs);
 }
 
-
 function deleteLoc(idx) {
-	gLocs.splice(idx, 1)
+	gLocs.splice(idx, 1);
+	storageService.saveToStorage(STORAGE_KEY, gLocs);
 }
-
-
 
 export const locService = {
 	getLocs,
@@ -86,4 +81,3 @@ export const locService = {
 	deleteLoc,
 	gLocs
 };
-
