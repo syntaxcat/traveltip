@@ -9,6 +9,10 @@ import { storageService } from './storage.service.js';
 
 const STORAGE_KEY = 'locationsDB';
 
+window.saveLoc = saveLoc;
+
+let id = 0;
+
 const locs = [
 	{
 		id: 2,
@@ -44,27 +48,27 @@ function saveLocation() {
 	storageService.saveToStorage(STORAGE_KEY, locs);
 }
 
-
 function getLocByName(val) {
-	return gLocs.map(loc => loc.name === val)
+	return gLocs.map((loc) => loc.name === val);
 }
 
-function createLoc(loc) {
-
+function createLoc(name, lat, lng) {
 	const location = {
 		id: id++,
-		name: loc,
-		lat: gCurrLat,
-		lng: gCurrLng,
+		name,
+		lat,
+		lng,
 		weather: 'rainy',
 		createdAt: Date.now(),
 		updatedAt: 222
-	}
+	};
 
-	return location
+	return location;
 }
 
-function saveLoc(loc) {
-	gLocs.unshift(loc)
+function saveLoc(name, lat, lng) {
+	const newLoc = createLoc(name, lat, lng);
+	gLocs.unshift(newLoc);
+	debugger;
 	locService.saveLocation(STORAGE_KEY, gLocs);
 }

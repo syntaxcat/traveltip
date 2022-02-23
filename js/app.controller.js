@@ -55,25 +55,18 @@ function onPanTo() {
 	mapService.panTo(35.6895, 139.6917);
 }
 
-
 // var elLocName = document.querySelector('.search-input');
 // console.log(elLocName)
 
-
-function onSaveLoc() {
-	console.log('hi')
+function onSaveLoc(name, lat, lng) {
 	// createLoc(loc)
-	// saveLoc(loc)
+	saveLoc(name, lat, lng);
 }
 
 function onGoAndSaveLoc() {
-	console.log('hi')
-	// createLoc(loc)
-	// saveLoc(loc)
+	console.log('HOLA');
+	createLoc(loc);
+	saveLoc(loc);
 }
 
-
-
-function renderLocations() {
-
-}
+function renderLocations() {}

@@ -10,6 +10,11 @@ var gMap;
 let infoWindow;
 let marker;
 
+function _onSaveLoc(lat, lng) {
+	onSaveLoc(infoWindowInputValue, lat, lng);
+}
+window.infoWindowInputValue = '';
+window._onSaveLoc = _onSaveLoc;
 function initMap(lat = 32.0749831, lng = 34.9120554) {
 	console.log('InitMap');
 	return _connectGoogleApi().then(() => {
@@ -23,8 +28,11 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 			infoWindow.close();
 			infoWindow = new google.maps.InfoWindow({
 				content: `<div class="msg">Name this location?
-							<input type="text" class="user-location" oninput="console.log(this.value)" placeholder="Enter loc name" size=10>
-							<button class="save-btn" onclick="onSaveLoc()">Save</button>
+							<input type="text" class="user-location" oninput="infoWindowInputValue = this.value" placeholder="Enter loc name" size=10>
+							<button class="save-btn" onclick="_onSaveLoc(
+                                ${e.latLng.lat()},
+                                ${e.latLng.lng()}
+                            )">Save</button>
 							</div>`,
 				position: e.latLng
 			});
@@ -70,4 +78,3 @@ function _connectGoogleApi() {
 		elGoogleApi.onerror = () => reject('Google script failed to load');
 	});
 }
-
