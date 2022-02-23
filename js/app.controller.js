@@ -10,6 +10,7 @@ window.onGoAndSaveLoc = onGoAndSaveLoc;
 window.onSaveLoc = onSaveLoc;
 window.onGo = onGo;
 window.onDelete = onDelete;
+window.onGetPosition = onGetPosition;
 
 function onInit() {
 	mapService
@@ -72,6 +73,8 @@ function onGoAndSaveLoc() {
 }
 
 function renderLocations() {
+	console.log(mapService)
+
 	var strHtmls = locService.gLocs.map(loc => {
 		return `<table>
 							<tr>
@@ -84,7 +87,6 @@ function renderLocations() {
 	})
 	document.querySelector('.locations-table').innerHTML = strHtmls.join('')
 }
-
 
 function onGo(lat, lng) {
 	var location = {
@@ -105,4 +107,8 @@ function onDelete(loc) {
 function getLocIdxByName(name) {
 	console.log(locService)
 	return locService.gLocs.findIndex(loc => name === loc.name)
+}
+
+function onGetPosition() {
+    navigator.geolocation.getCurrentPosition(mapService.showLocation, mapService.handleLocationError);
 }

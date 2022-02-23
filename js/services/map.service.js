@@ -1,7 +1,9 @@
 export const mapService = {
 	initMap,
 	addMarker,
-	panTo
+	panTo,
+	showLocation,
+	handleLocationError
 };
 
 import { locService } from './loc.service.js';
@@ -15,6 +17,9 @@ function _onSaveLoc(lat, lng) {
 }
 window.infoWindowInputValue = '';
 window._onSaveLoc = _onSaveLoc;
+
+
+
 function initMap(lat = 32.0749831, lng = 34.9120554) {
 	console.log('InitMap');
 	return _connectGoogleApi().then(() => {
@@ -77,4 +82,34 @@ function _connectGoogleApi() {
 		elGoogleApi.onload = resolve;
 		elGoogleApi.onerror = () => reject('Google script failed to load');
 	});
+}
+
+
+
+function showLocation(position) {
+	// console.log(position, 'pos');
+
+	// var date = new Date(position.timestamp);
+	// document.getElementById("timestamp").innerHTML = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+	initMap(position.coords.latitude, position.coords.longitude);
+}
+
+
+function handleLocationError(error) {
+	var locationError = document.getElementById("locationError");
+
+	switch (error.code) {
+		case 0:
+			locationError.innerHTML = "There was an error while retrieving your location: " + error.message;
+			break;
+		case 1:
+			locationError.innerHTML = "The user didn't allow this page to retrieve a location.";
+			break;
+		case 2:
+			locationError.innerHTML = "The browser was unable to determine your location: " + error.message;
+			break;
+		case 3:
+			locationError.innerHTML = "The browser timed out before retrieving the location.";
+			break;
+	}
 }

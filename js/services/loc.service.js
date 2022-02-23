@@ -71,7 +71,7 @@ function saveLoc(name, lat, lng) {
 }
 
 
-function deleteLoc(idx){
+function deleteLoc(idx) {
 	gLocs.splice(idx, 1)
 }
 
@@ -86,3 +86,4 @@ export const locService = {
 	deleteLoc,
 	gLocs
 };
+
