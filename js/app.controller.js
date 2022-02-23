@@ -11,6 +11,8 @@ window.onSaveLoc = onSaveLoc;
 window.onGo = onGo;
 window.onDelete = onDelete;
 window.onGetPosition = onGetPosition;
+window.askDetails = askDetails;
+window.onAskDetails = onAskDetails;
 
 function onInit() {
 	mapService
@@ -112,3 +114,26 @@ function getLocIdxByName(name) {
 function onGetPosition() {
     navigator.geolocation.getCurrentPosition(mapService.showLocation, mapService.handleLocationError);
 }
+
+
+
+function askDetails(cb) {
+	var val = document.querySelector('.search-input').value
+	console.log('asking...', val)
+	var httpRequest = new XMLHttpRequest()
+	httpRequest.onreadystatechange = function () {
+	  if (httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status === 200) {
+		var data = JSON.parse(httpRequest.responseText)
+		cb(data.results[0].geometry.location)
+	  }
+	}
+	httpRequest.open(
+	  'GET',
+	  `https://maps.googleapis.com/maps/api/geocode/json?address=${val}&key=AIzaSyBIIJxF_yfMzCne22NG36zhttQQMsIQhp8`
+	)
+	httpRequest.send()
+  }
+
+  function onAskDetails(){
+	askDetails(mapService.panTo)
+  }
