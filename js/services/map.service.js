@@ -22,7 +22,10 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 		gMap.addListener('click', (e) => {
 			infoWindow.close();
 			infoWindow = new google.maps.InfoWindow({
-				content: `<div class="msg">Name this location?</div>`,
+				content: `<div class="msg">Name this location?
+							<input type="text" class="user-location" oninput="console.log(this.value)" placeholder="Enter loc name" size=10>
+							<button class="save-btn" onclick="onSaveLoc()">Save</button>
+							</div>`,
 				position: e.latLng
 			});
 			addMarker(e.latLng);
@@ -30,7 +33,6 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 			console.log('e', e);
 			panTo(e.latLng);
 			console.log('e.LatLng', e.latLng);
-			locService.saveLocation();
 		});
 		infoWindow = new google.maps.InfoWindow();
 		infoWindow.open();
@@ -68,3 +70,4 @@ function _connectGoogleApi() {
 		elGoogleApi.onerror = () => reject('Google script failed to load');
 	});
 }
+

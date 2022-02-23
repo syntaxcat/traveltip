@@ -6,6 +6,8 @@ window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
+window.onGoAndSaveLoc = onGoAndSaveLoc;
+window.onSaveLoc = onSaveLoc;
 
 function onInit() {
 	mapService
@@ -47,26 +49,31 @@ function onGetUserPos() {
 			console.log('err!!!', err);
 		});
 }
+
 function onPanTo() {
 	console.log('Panning the Map');
 	mapService.panTo(35.6895, 139.6917);
 }
 
-// function placeMarkerAndPanTo(latLng, map) {
-// 	// var favPosName = prompt('pos Name?')
 
-// 	// addLocationtoList(latLng, favPosName);
+// var elLocName = document.querySelector('.search-input');
+// console.log(elLocName)
 
-// 	var marker = new google.maps.Marker({
-// 		position: latLng,
-// 		map: map
-// 	});
 
-// 	gMarkers.unshift(marker);
-// 	// console.log(markers);
+function onSaveLoc() {
+	console.log('hi')
+	// createLoc(loc)
+	// saveLoc(loc)
+}
 
-// 	map.panTo(latLng);
-// 	// renderFavLocations();
-// }
+function onGoAndSaveLoc() {
+	console.log('hi')
+	// createLoc(loc)
+	// saveLoc(loc)
+}
 
-// var gMarkers = [];
+
+
+function renderLocations() {
+
+}
