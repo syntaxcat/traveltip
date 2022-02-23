@@ -4,13 +4,10 @@ export const mapService = {
 	panTo,
 	showLocation,
 	handleLocationError,
-	// askDetails
+	searchAddress
 };
 
-import { locService } from './loc.service.js';
-
-const GEO_KEY = 'AIzaSyBIIJxF_yfMzCne22NG36zhttQQMsIQhp8';
-
+const API_KEY = 'AIzaSyBIIJxF_yfMzCne22NG36zhttQQMsIQhp8';
 
 var gMap;
 let infoWindow;
@@ -67,14 +64,11 @@ function addMarker(loc) {
 }
 
 function panTo(pos) {
-	// var laLatLng = new google.maps.LatLng(lat, lng);
 	gMap.panTo(pos);
-	// console.log(laLatLng.lat(), laLatLng.lng());
 }
 
 function _connectGoogleApi() {
 	if (window.google) return Promise.resolve();
-	const API_KEY = 'AIzaSyBIIJxF_yfMzCne22NG36zhttQQMsIQhp8';
 	var elGoogleApi = document.createElement('script');
 	elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
 	elGoogleApi.async = true;
@@ -87,10 +81,6 @@ function _connectGoogleApi() {
 }
 
 function showLocation(position) {
-	// console.log(position, 'pos');
-
-	// var date = new Date(position.timestamp);
-	// document.getElementById("timestamp").innerHTML = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 	initMap(position.coords.latitude, position.coords.longitude);
 }
 
@@ -113,10 +103,13 @@ function handleLocationError(error) {
 	}
 }
 
-			const URL_SEARCH =
-				'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${GEO_KEY}';
-			
-			//maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyBIIJxF_yfMzCne22NG36zhttQQMsIQhp8
-
-
-			
+function searchAddress(address) {
+	const geocoder = new google.maps.Geocoder();
+	geocoder.geocode({ address: address }, function(results, status) {
+		if (status == 'OK') {
+			panTo(results[0].geometry.location);
+		} else {
+			alert('Geocode was not successful for the following reason: ' + status);
+		}
+	});
+}

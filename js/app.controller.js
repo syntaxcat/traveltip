@@ -11,7 +11,6 @@ window.onSaveLoc = onSaveLoc;
 window.onGo = onGo;
 window.onDelete = onDelete;
 window.onGetPosition = onGetPosition;
-window.askDetails = askDetails;
 window.onAskDetails = onAskDetails;
 
 function onInit() {
@@ -61,13 +60,9 @@ function onPanTo() {
 	mapService.panTo(35.6895, 139.6917);
 }
 
-// var elLocName = document.querySelector('.search-input');
-// console.log(elLocName)
-
 function onSaveLoc(name, lat, lng) {
-	// createLoc(loc)
 	saveLoc(name, lat, lng);
-	renderLocations(name)
+	renderLocations(name);
 }
 
 function onGoAndSaveLoc() {
@@ -75,65 +70,45 @@ function onGoAndSaveLoc() {
 }
 
 function renderLocations() {
-	console.log(mapService)
+	console.log(mapService);
 
-	var strHtmls = locService.gLocs.map(loc => {
+	var strHtmls = locService.gLocs.map((loc) => {
 		return `<table>
-							<tr>
-								<td>${loc.name}</td>
-									<td> <button onclick="onGo(${loc.lat},${loc.lng})">GO</button></td>
-								<td><button onclick="onDelete('${loc.name}')">Delete</button></td>
-							</tr>
-						</table>		
-					`
-	})
-	document.querySelector('.locations-table').innerHTML = strHtmls.join('')
+					<tr>
+						<td>${loc.name}</td>
+							<td> <button onclick="onGo(${loc.lat},${loc.lng})">GO</button></td>
+						<td><button onclick="onDelete('${loc.name}')">Delete</button></td>
+					</tr>
+				</table>		
+			`;
+	});
+	document.querySelector('.locations-table').innerHTML = strHtmls.join('');
 }
 
 function onGo(lat, lng) {
 	var location = {
 		lat,
 		lng
-	}
-	// console.log(lat, lng)
-	mapService.panTo(location)
+	};
+	mapService.panTo(location);
 }
 
-
 function onDelete(loc) {
-	var idx = getLocIdxByName(loc)
-	locService.deleteLoc(idx)
-	renderLocations()
+	var idx = getLocIdxByName(loc);
+	locService.deleteLoc(idx);
+	renderLocations();
 }
 
 function getLocIdxByName(name) {
-	console.log(locService)
-	return locService.gLocs.findIndex(loc => name === loc.name)
+	console.log(locService);
+	return locService.gLocs.findIndex((loc) => name === loc.name);
 }
 
 function onGetPosition() {
-    navigator.geolocation.getCurrentPosition(mapService.showLocation, mapService.handleLocationError);
+	navigator.geolocation.getCurrentPosition(mapService.showLocation, mapService.handleLocationError);
 }
 
-
-
-function askDetails(cb) {
-	var val = document.querySelector('.search-input').value
-	console.log('asking...', val)
-	var httpRequest = new XMLHttpRequest()
-	httpRequest.onreadystatechange = function () {
-	  if (httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status === 200) {
-		var data = JSON.parse(httpRequest.responseText)
-		cb(data.results[0].geometry.location)
-	  }
-	}
-	httpRequest.open(
-	  'GET',
-	  `https://maps.googleapis.com/maps/api/geocode/json?address=${val}&key=AIzaSyBIIJxF_yfMzCne22NG36zhttQQMsIQhp8`
-	)
-	httpRequest.send()
-  }
-
-  function onAskDetails(){
-	askDetails(mapService.panTo)
-  }
+function onAskDetails() {
+	var val = document.querySelector('.search-input').value;
+	mapService.searchAddress(val);
+}
