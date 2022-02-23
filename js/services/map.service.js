@@ -4,9 +4,11 @@ export const mapService = {
 	panTo
 };
 
-import { storageService } from './services/storage.service.js';
+import { locService } from './loc.service.js';
 
 var gMap;
+let infoWindow;
+let marker;
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
 	console.log('InitMap');
@@ -18,20 +20,31 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 		});
 		console.log('Map!', gMap);
 		gMap.addListener('click', (e) => {
+			infoWindow.close();
+			infoWindow = new google.maps.InfoWindow({
+				content: `<div class="msg">Name this location?</div>`,
+				position: e.latLng
+			});
 			addMarker(e.latLng);
+			infoWindow.open(gMap);
 			console.log('e', e);
 			panTo(e.latLng);
 			console.log('e.LatLng', e.latLng);
-			saveLocation();
+			locService.saveLocation();
 		});
+		infoWindow = new google.maps.InfoWindow();
+		infoWindow.open();
+
+		marker = new google.maps.Marker({ map: gMap });
 	});
 }
 
 function addMarker(loc) {
-	var marker = new google.maps.Marker({
+	marker = new google.maps.Marker({
 		position: loc,
 		map: gMap,
-		title: 'Hello World!'
+		title: 'Hello World!',
+		visible: true
 	});
 	return marker;
 }
@@ -41,10 +54,6 @@ function panTo(laLatLng) {
 	gMap.panTo(laLatLng);
 	console.log(laLatLng.lat(), laLatLng.lng());
 }
-// function panTo(lat, lng) {
-// 	var laLatLng = new google.maps.LatLng(lat, lng);
-// 	gMap.panTo(laLatLng);
-// }
 
 function _connectGoogleApi() {
 	if (window.google) return Promise.resolve();

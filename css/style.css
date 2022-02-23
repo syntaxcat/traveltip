@@ -1,32 +1,31 @@
+.msg {
+	position: relative;
+}
 
-
-
-.main-container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.main-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 /* .details{
     height: 100px;
 } */
-.weather{
-    height: 100px;
-    background-color: orange;
-    
+.weather {
+	height: 100px;
+	background-color: orange;
 }
-.locations-table{
-    
-    background-color: tomato;
-    height: 100px;
+.locations-table {
+	background-color: tomato;
+	height: 100px;
 }
 
-#map{
-    width: 450px;
-    height: 450px;
+#map {
+	width: 450px;
+	height: 450px;
 }
 
-.nav-bar{
-    display: flex;
-    justify-content: center;
-    height: 20px;
+.nav-bar {
+	display: flex;
+	justify-content: center;
+	height: 20px;
 }
