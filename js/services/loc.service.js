@@ -1,10 +1,8 @@
-export const locService = {
-	getLocs,
-	saveLocation,
-	getLocByName,
-	createLoc,
-	saveLoc
-};
+
+
+
+var gLocs
+// const gLocs;
 import { storageService } from './storage.service.js';
 
 const STORAGE_KEY = 'locationsDB';
@@ -13,7 +11,7 @@ window.saveLoc = saveLoc;
 
 let id = 0;
 
-const locs = [
+var locs = [
 	{
 		id: 2,
 		name: 'Greatplace',
@@ -34,7 +32,7 @@ const locs = [
 	}
 ];
 
-const gLocs = locs;
+gLocs = locs;
 
 function getLocs() {
 	return new Promise((resolve, reject) => {
@@ -69,6 +67,22 @@ function createLoc(name, lat, lng) {
 function saveLoc(name, lat, lng) {
 	const newLoc = createLoc(name, lat, lng);
 	gLocs.unshift(newLoc);
-	debugger;
 	locService.saveLocation(STORAGE_KEY, gLocs);
 }
+
+
+function deleteLoc(idx){
+	gLocs.splice(idx, 1)
+}
+
+
+
+export const locService = {
+	getLocs,
+	saveLocation,
+	getLocByName,
+	createLoc,
+	saveLoc,
+	deleteLoc,
+	gLocs
+};

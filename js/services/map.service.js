@@ -59,10 +59,10 @@ function addMarker(loc) {
 	return marker;
 }
 
-function panTo(laLatLng) {
+function panTo(pos) {
 	// var laLatLng = new google.maps.LatLng(lat, lng);
-	gMap.panTo(laLatLng);
-	console.log(laLatLng.lat(), laLatLng.lng());
+	gMap.panTo(pos);
+	// console.log(laLatLng.lat(), laLatLng.lng());
 }
 
 function _connectGoogleApi() {

@@ -8,6 +8,8 @@ window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
 window.onGoAndSaveLoc = onGoAndSaveLoc;
 window.onSaveLoc = onSaveLoc;
+window.onGo = onGo;
+window.onDelete = onDelete;
 
 function onInit() {
 	mapService
@@ -16,6 +18,7 @@ function onInit() {
 			console.log('Map is ready');
 		})
 		.catch(() => console.log('Error: cannot init map'));
+	renderLocations();
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -61,12 +64,45 @@ function onPanTo() {
 function onSaveLoc(name, lat, lng) {
 	// createLoc(loc)
 	saveLoc(name, lat, lng);
+	renderLocations(name)
 }
 
 function onGoAndSaveLoc() {
-	console.log('HOLA');
 	createLoc(loc);
-	saveLoc(loc);
 }
 
-function renderLocations() {}
+function renderLocations() {
+	var strHtmls = locService.gLocs.map(loc => {
+		return `<table>
+							<tr>
+								<td>${loc.name}</td>
+									<td> <button onclick="onGo(${loc.lat},${loc.lng})">GO</button></td>
+								<td><button onclick="onDelete('${loc.name}')">Delete</button></td>
+							</tr>
+						</table>		
+					`
+	})
+	document.querySelector('.locations-table').innerHTML = strHtmls.join('')
+}
+
+
+function onGo(lat, lng) {
+	var location = {
+		lat,
+		lng
+	}
+	// console.log(lat, lng)
+	mapService.panTo(location)
+}
+
+
+function onDelete(loc) {
+	var idx = getLocIdxByName(loc)
+	locService.deleteLoc(idx)
+	renderLocations()
+}
+
+function getLocIdxByName(name) {
+	console.log(locService)
+	return locService.gLocs.findIndex(loc => name === loc.name)
+}
