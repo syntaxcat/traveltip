@@ -1,6 +1,9 @@
 export const locService = {
 	getLocs
 };
+import { storageService } from './services/storage.service.js';
+
+const STORAGE_KEY = 'locationsDB';
 
 const locs = [
 	{
@@ -29,4 +32,8 @@ function getLocs() {
 			resolve(locs);
 		}, 2000);
 	});
+}
+
+function saveLocation() {
+	saveToStorage(STORAGE_KEY, locs);
 }

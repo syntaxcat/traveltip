@@ -4,6 +4,8 @@ export const mapService = {
 	panTo
 };
 
+import { storageService } from './services/storage.service.js';
+
 var gMap;
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
@@ -20,6 +22,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 			console.log('e', e);
 			panTo(e.latLng);
 			console.log('e.LatLng', e.latLng);
+			saveLocation();
 		});
 	});
 }
