@@ -10,12 +10,13 @@
 
 <body>
     <main>
-
+        <div class="header">
         <h1>TravelTip</h1>
-        <div class="nav-bar">
-            <input type="text" placeholder="Enter Location" class="search-input">
-            <button class="search-btn" onclick="onAskDetails()">GO</button>
-            <button class="my-location-btn" onclick="onGetPosition()">My Location</button>
+            <div class="nav">
+                <input type="text" placeholder="Enter Location" class="search-input">
+                <button class="search-btn" onclick="onAskDetails()">GO</button>
+                <button class="my-location-btn" onclick="onGetPosition()">My Location</button>
+            </div>
         </div>
         <div class="details">Location: <span class="curr-location"></span>
             <button class="copy-location-btn" onclick="onCopyLocation()">Copy Location</button>
@@ -25,19 +26,18 @@
                 <div class="weather">weather</div>
                 <div class="locations-table">locations table</div>
                 <!-- <div onclick="onGetPosition()">🔘 Current Location</div> -->
-
             </div>
             <div id="map"></div>
-
         </div>
-        <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
-        <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
-        <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-        <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
-
-        <p>You are at: <span class="user-pos"></span></p>
-        <p>Locations: <span class="locs"></span></p>
-
+        <div class="nav-buttons">
+            <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
+            <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
+            <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
+            <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
+        </div>
+            <p>You are at: <span class="user-pos"></span></p>
+            <p>Locations: <span class="locs"></span></p>
+        
     </main>
 
     <script type="module" src="js/app.controller.js"></script>

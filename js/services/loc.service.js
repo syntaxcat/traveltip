@@ -1,5 +1,4 @@
 var gLocs;
-// const gLocs;
 import { storageService } from './storage.service.js';
 
 const STORAGE_KEY = 'locationsDB';
