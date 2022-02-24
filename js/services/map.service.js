@@ -108,6 +108,7 @@ function searchAddress(address) {
 	geocoder.geocode({ address: address }, function(results, status) {
 		if (status == 'OK') {
 			panTo(results[0].geometry.location);
+			onSaveLoc(address,results[0].geometry.location.lat, results[0].geometry.location.lng)
 		} else {
 			alert('Geocode was not successful for the following reason: ' + status);
 		}
