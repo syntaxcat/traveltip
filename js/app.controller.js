@@ -12,6 +12,7 @@ window.onGo = onGo;
 window.onDelete = onDelete;
 window.onGetPosition = onGetPosition;
 window.onAskDetails = onAskDetails;
+window.onCopyLocation = onCopyLocation;
 
 function onInit() {
 	mapService
@@ -111,4 +112,11 @@ function onGetPosition() {
 function onAskDetails() {
 	var val = document.querySelector('.search-input').value;
 	mapService.searchAddress(val);
+}
+
+
+function onCopyLocation(){
+	var val = document.querySelector('.search-input').value;
+	document.querySelector('.copy-location-text').innerText = val
+
 }
