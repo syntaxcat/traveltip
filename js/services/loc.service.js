@@ -28,7 +28,7 @@ var locs = [
 	}
 ];
 
-gLocs = locs;
+gLocs = storageService.loadFromStorage(STORAGE_KEY) || locs;
 
 function getLocs() {
 	return new Promise((resolve, reject) => {
